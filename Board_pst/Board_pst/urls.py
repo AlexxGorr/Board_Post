@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pages/', include('django.contrib.flatpages.urls')),
+
+    path('board/', include('board.urls'), name='board'),
+    #path('sign/', include('sign.urls'), name='sign'),
+    path('', RedirectView.as_view(url='board/', permanent=False)),
 ]

@@ -6,9 +6,32 @@ Board
 
 {% block content %}
 <h1>Welcom</h1>
-<table height = 400 border = 0>
-    <tr>
-        <td>&nbsp;</td>
-    </tr>
-</table>
+
+<hr>
+    {% if posts %}
+
+        {% for post in posts %}
+        <table border = 0 width = 100%>
+            <tr>
+                <td align="left">
+                    <b>{{ post.date_create|date:'d.m.Y' }}</b>
+                    <a href="/board/{{post.pk}}">{{ post.post_title|truncatechars:50 }}</a>
+                    <br>
+                    {% for cat in post.name_category.all %}
+                    категория:
+                    <b>{{ cat }}</b>
+                    {% endfor %}
+                    <br>
+                    {{ post.post_text|truncatechars:200 }}
+
+                </td>
+            </tr>
+        </table>
+        <hr>
+        {% endfor %}
+
+    {% else %}
+        <h2>Новостей нет</h2>
+    {% endif %}
+
 {% endblock content %}
