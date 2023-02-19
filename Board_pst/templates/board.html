@@ -8,6 +8,7 @@ Board
 <h1>Welcom</h1>
 
 <hr>
+<h4> Количество объявлений: {{ posts|length }} </h4>
     {% if posts %}
 
         {% for post in posts %}
@@ -17,10 +18,7 @@ Board
                     <b>{{ post.date_create|date:'d.m.Y' }}</b>
                     <a href="/board/{{post.pk}}">{{ post.post_title|truncatechars:50 }}</a>
                     <br>
-                    {% for cat in post.name_category.all %}
-                    категория:
-                    <b>{{ cat }}</b>
-                    {% endfor %}
+                    категория: <b>{{ post.name_category }}</b> - автор: <b>{{ post.author.user.username }}</b>
                     <br>
                     {{ post.post_text|truncatechars:200 }}
 
@@ -32,6 +30,16 @@ Board
 
     {% else %}
         <h2>Новостей нет</h2>
+    {% endif %}
+
+
+    {% if user.is_authenticated %}
+        <h5><a href="create/{{ post.id }}">Создать объявление</a></h5>
+        {% if portal_user.subscribers %}
+            <h5><a href="subscribe_off/">Отписаться от новостей</a></h5>
+        {% else %}
+            <h5><a href="subscribe_on/">Подписаться на новости</a></h5>
+        {% endif %}
     {% endif %}
 
 {% endblock content %}

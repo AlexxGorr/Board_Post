@@ -1,8 +1,8 @@
 from django.shortcuts import redirect
 
-from .forms import PostForm
+from .forms import PostForm, RespondForm
 from .models import Authors, Posts, Responds
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -39,6 +39,15 @@ class PostCreate(CreateView):
     #     post = form.save(commit=False)
     #     post.author = Authors.objects.get(user=self.request.user)
     #     return super().form_valid(form)
+
+
+class RespondCreate(FormView):
+    model = Responds
+    form = RespondForm
+    template_name = 'post_respond.html'
+    context_object_name = 'respond'
+
+
 
 
 

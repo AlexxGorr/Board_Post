@@ -22,9 +22,8 @@ Post
             </tr>
         </table>
 <br>
-{% for cat in post.name_category.all %}
-категория: <b>{{ cat }}</b>
-{% endfor %}
+категория: <b>{{ post.name_category }}</b> - автор: <b>{{ post.author.user.username }}</b>
+
 
 
 {% endblock content %}

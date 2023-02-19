@@ -22,6 +22,6 @@ urlpatterns = [
     path('pages/', include('django.contrib.flatpages.urls')),
 
     path('board/', include('board.urls'), name='board'),
-    #path('sign/', include('sign.urls'), name='sign'),
+    path('sign/', include('sign.urls')),
     path('', RedirectView.as_view(url='board/', permanent=False)),
 ]

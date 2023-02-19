@@ -6,7 +6,14 @@ class LoginForm(forms.Form):
     password = forms.CharField(label='Пароль')
 
     class Meta:
-        fields = ['username', 'password']
+        fields = ['username', 'password',]
+
+
+class SignatureForm(forms.Form):
+    signature = forms.CharField(label='Код')
+
+    class Meta:
+        fields = ['signature',]
 
 
 
