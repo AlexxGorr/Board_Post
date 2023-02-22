@@ -3,14 +3,14 @@ from django.core.exceptions import ValidationError
 from board.models import Posts
 
 
-class PostForm(forms.Form):
+class PostForm(forms.ModelForm):
     class Meta:
         model = Posts
         fields = [
-            'authors',
+            'author',
             'post_title',
             'post_text',
-            'name_category'
+            'name_category',
         ]
 
     def clean(self):
@@ -24,7 +24,7 @@ class PostForm(forms.Form):
         return cleaned_data
 
 
-class RespondForm(forms.ModelForm):
+class RespondForm(forms.Form):
     text = forms.CharField(label='Оставить отклик', widget=forms.Textarea)
 
     class Meta:

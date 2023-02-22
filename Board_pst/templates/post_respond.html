@@ -7,7 +7,26 @@ Respond
 
 {% block content %}
 
+{% include 'auth.html' %}
+
 <h1>Respond</h1>
+
+<hr>
+        <table border = 0 width = 100% align = center>
+            <tr>
+                <td><h3>{{ post.post_title }}</h3></td>
+            </tr>
+            <tr>
+                <td><b>{{ post.date_create|date:'d.m.Y' }}</b></td>
+            </tr>
+            <tr>
+                <td>{{ post.post_text }}</td>
+            </tr>
+        </table>
+<br>
+категория: <b>{{ post.name_category }}</b> - автор: <b>{{ post.author.user.username }}</b>
+
+
 
     <form action="" method="post">
         {% csrf_token %}

@@ -5,9 +5,11 @@ Board
 {% endblock title %}
 
 {% block content %}
-<h1>Welcom</h1>
+
+{% include 'auth.html' %}
 
 <hr>
+
 <h4> Количество объявлений: {{ posts|length }} </h4>
     {% if posts %}
 

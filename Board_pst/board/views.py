@@ -29,23 +29,46 @@ class PostDetail(DetailView):
         return context
 
 
-class PostCreate(CreateView):
+class PostCreate(LoginRequiredMixin, CreateView):
     model = Posts
-    form = PostForm
+    form_class = PostForm
+    #fields = '__all__'
     template_name = 'post_create.html'
     success_url = '/board/'
 
-    # def form_valid(self, form):
-    #     post = form.save(commit=False)
-    #     post.author = Authors.objects.get(user=self.request.user)
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.author = Authors.objects.get(user=self.request.user)
+        return super().form_valid(form)
 
 
-class RespondCreate(FormView):
+class RespondCreate(LoginRequiredMixin, FormView):
     model = Responds
-    form = RespondForm
+    form_class = RespondForm
     template_name = 'post_respond.html'
     context_object_name = 'respond'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post'] = Posts.objects.get(pk=self.request.GET.get('post_pk'))
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.create_respond()
+        return redirect(f'/board/{self.request.POST.get("post_pk")}')
+
+    def create_respond(self):
+        respond = Responds()
+        respond.hater = Authors.objects.get(user=self.request.user)
+        respond.post = Posts.objects.get(pk=self.request.POST.get('post_pk'))
+        respond.text_respond = self.request.POST.get('text_respond')
+        resond.save()
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+
+
 
 
 

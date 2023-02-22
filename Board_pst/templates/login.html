@@ -1,4 +1,4 @@
-{% extended 'flatpages/default.html' %}
+{% extends 'flatpages/default.html' %}
 
 
 {% block title %}
@@ -6,6 +6,10 @@ Login
 {% endblock title %}
 
 {% block content %}
+
+{% include 'auth.html' %}
+
+<hr>
 
 <h1>Login</h1>
 

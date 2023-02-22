@@ -44,9 +44,20 @@ INSTALLED_APPS = [
 
     'board',
     'sign',
+
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
 ]
 
 SITE_ID = 1
+
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_UNIQUE_EMAIL = True
+# ACCOUNT_USERNAME_REQUIRED = True
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,6 +88,18 @@ TEMPLATES = [
         },
     },
 ]
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+#LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/sign/login/'
+LOGIN_REDIRECT_URL = '/welcome/'
+#ACCOUNT_LOGOUT_REDIRECT_URL = '/goodbye/'
+
 
 WSGI_APPLICATION = 'Board_pst.wsgi.application'
 
@@ -135,5 +158,9 @@ STATICFILES_DIRS = [ BASE_DIR / 'static' ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = '/sign/login/'
-LOGIN_REDIRECT_URL = '/'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = 'skillfactorylearning'
+EMAIL_HOST_PASSWORD = 'wVnnCPtVU2g9hrCJLBMj'
+EMAIL_USE_SSL = False
+EMAIL_USE_TLS = True

@@ -7,12 +7,13 @@ Post
 
 {% block content %}
 
+{% include 'auth.html' %}
 
-<h1>Подробно</h1>
 <hr>
+
         <table border = 0 width = 100% align = center>
             <tr>
-                <td><h3>{{ post.post_title }}</h3></td>
+                <td><h2>{{ post.post_title }}</h2></td>
             </tr>
             <tr>
                 <td><b>{{ post.date_create|date:'d.m.Y' }}</b></td>
@@ -23,6 +24,37 @@ Post
         </table>
 <br>
 категория: <b>{{ post.name_category }}</b> - автор: <b>{{ post.author.user.username }}</b>
+<hr>
+
+<h5> Отклики </h5>
+
+    {% if responds %}
+
+        <table>
+            <tr>
+                <td>Автор</td>
+                <td>Создан</td>
+                <td>Содержание</td>
+            </tr>
+            {% for respond in responds %}
+                <tr>
+                    <td>{{ respond.hater }}</td>
+                    <td>{{ respond.date_respond|date:'d M Y' }}</td>
+                    <td>{{ respond.text_respond }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    {% else %}
+        <h5>Откликов нет</h5>
+    {% endif %}
+
+
+    <form action="/board/{{ post.id }}/respond/" method="get">
+        {% csrf_token %}
+        <input type="hidden" name="post_pk" value={{ post.id }}>
+        <input type="submit" value="Оставить отклик"/>
+    </form>
 
 
 

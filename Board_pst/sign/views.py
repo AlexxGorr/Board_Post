@@ -1,6 +1,5 @@
 from django.contrib.auth import authenticate, login
 from django.core.mail import send_mail
-from django.views.generic import FormView, CreateView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView, FormView
@@ -12,13 +11,13 @@ from .models import PrivacySignature
 
 
 class SingupView(CreateView):
-    form = UserCreationForm
+    form_class = UserCreationForm
     success_url = reverse_lazy('signup')
     template_name = 'signup.html'
 
 
 class LoginView(FormView):
-    form = LoginForm
+    form_class = LoginForm
     template_name = 'login.html'
 
     def post(self, request, *args, **kwargs):
@@ -37,12 +36,12 @@ class LoginView(FormView):
                 recipient_list=[user.email],
                 fail_silently=False,
             )
-            target = redirect(f'key/?username={username}')
+            target = redirect(f'signature/?username={username}')
         return target
 
 
 class LoginSignatureView(FormView):
-    form = SignatureForm
+    form_class = SignatureForm
     template_name = 'login_signature.html'
 
     def post(self, request, *args, **kwargs):
