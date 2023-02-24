@@ -7,7 +7,6 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Posts
         fields = [
-            'author',
             'post_title',
             'post_text',
             'name_category',
@@ -25,7 +24,7 @@ class PostForm(forms.ModelForm):
 
 
 class RespondForm(forms.Form):
-    text = forms.CharField(label='Оставить отклик', widget=forms.Textarea)
+    text = forms.CharField(label='', widget=forms.Textarea)
 
     class Meta:
         fields = ['text']
